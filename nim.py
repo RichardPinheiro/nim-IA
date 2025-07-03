@@ -132,7 +132,16 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        raise NotImplementedError
+        actions = Nim.available_actions(state)
+        if not actions:
+            return 0
+
+        max_q = max(
+            self.get_q_value(state, action)
+            for action in actions
+        )
+
+        return max_q
 
     def choose_action(self, state, epsilon=True):
         """
